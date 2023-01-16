@@ -1,30 +1,3 @@
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: devops-toolkit
-  namespace: default
-  labels:
-    type: ingress
-    service: devops-toolkit
-  annotations:
-    kubernetes.io/ingress.class: "nginx"
-    ingress.kubernetes.io/ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
-spec:
-  rules:
-  # - host: devopstoolkitseries.com # All HTTP traffic from devopstoolkitseries.com hosts will be subject to this rule
-  - http:
-      paths:
-      - pathType: ImplementationSpecific
-        path: /
-        backend:
-          service:
-            name: devops-toolkit
-            port: 
-              number: 80
-
----
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -70,6 +43,33 @@ spec:
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: devops-toolkit
+  namespace: default
+  labels:
+    type: ingress
+    service: devops-toolkit
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+  # - host: devopstoolkitseries.com # All HTTP traffic from devopstoolkitseries.com hosts will be subject to this rule
+  - http:
+      paths:
+      - pathType: ImplementationSpecific
+        path: /
+        backend:
+          service:
+            name: devops-toolkit
+            port: 
+              number: 80
 
 ---
 

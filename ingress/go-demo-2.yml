@@ -1,30 +1,3 @@
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: go-demo-2
-  namespace: default
-  labels:
-    type: ingress
-    service: go-demo-2
-  annotations:
-    kubernetes.io/ingress.class: "nginx"
-    ingress.kubernetes.io/ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
-spec:
-  rules:
-  # - host: "*" # All HTTP traffic will be subject to this rule
-  - http:
-      paths:
-      - pathType: ImplementationSpecific
-        path: /demo
-        backend:
-          service:
-            name: go-demo-2-api
-            port: 
-              number: 8080
-
----
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -126,3 +99,30 @@ spec:
     service: go-demo-2
   ports:
   - port: 8080
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: go-demo-2
+  namespace: default
+  labels:
+    type: ingress
+    service: go-demo-2
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+  # - host: "*" # All HTTP traffic will be subject to this rule
+  - http:
+      paths:
+      - pathType: ImplementationSpecific
+        path: /demo
+        backend:
+          service:
+            name: go-demo-2-api
+            port: 
+              number: 8080
